@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  php:
+    container_name: PHP
+    build: .
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - ./html:/var/www/html
+    - ./custom.php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - app-network
+
+  mysql-app:
+    container_name: mysql
+    image: mysql:5.7.22
+    ports: 
+      - "3306:3306"
+    volumes:
+      - ./db/:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_DATABASE: admin
+      MYSQL_ROOT_PASSWORD: 12345
+    networks:
+      - app-network
+  
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8082:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - app-network
+      
+networks:
+  app-network:
+    driver: bridge
