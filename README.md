@@ -123,7 +123,9 @@ $ docker-compose ps
 O site estará disponível em [http://localhost](http://localhost/)
 
 O SGBD (phpMyadmin) estará disponível em [http://localhost:8082/]
+```bash
 `DB_HOST`: mysql-app
 `DB_USERNAME`: root
 `DB_PASSWORD`: 12345
+```
 
